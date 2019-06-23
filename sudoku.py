@@ -1,6 +1,5 @@
 from pprint import pprint
 
-added = 0
 b = [[0 for i in range(9)] for j in range(9)]
 
 def isSolved():
@@ -82,7 +81,6 @@ def writeNumber(n,l):
 	pprint(n)
 	pprint(l)		
 	pprint(b)
-	added = added + 1
 	
 def checkBySquare():
 	for n in range(1,10):
@@ -198,4 +196,18 @@ while not exit:
 	checkBySquare()
 	checkByRow()
 	checkByColumn()
-pprint(added)
+	
+c = [["|" for i in range(11)] for j in range(11)]
+for j in range(11):
+	if (j%4==3):
+		for i in range(11):
+			if (i%4==3):
+				c[j][i] = "+"
+			else:
+				c[j][i] = "-"
+for j in range(9):
+	for i in range(9):
+		c[j+(j-j%3)/3][i+(i-i%3)/3] = str(b[j][i])
+pprint("")
+pprint(c)
+    
