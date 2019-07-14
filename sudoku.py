@@ -1,6 +1,7 @@
 from pprint import pprint
 
 b = [[0 for i in range(9)] for j in range(9)]
+exit = [False]
 
 def isSolved():
 	for j in range(9):
@@ -77,10 +78,11 @@ def findLocationColumn(n,locations):
 	return location
 
 def writeNumber(n,l):
+	exit[0] = False
 	b[l[1]][l[0]] = n
-	pprint(n)
-	pprint(l)		
-	pprint(b)
+	#pprint(n)
+	#pprint(l)		
+	#pprint(b)
 	
 def checkBySquare():
 	for n in range(1,10):
@@ -95,7 +97,6 @@ def checkBySquare():
 					#pprint("location: " + str(location))
 					if l != 0:
 						writeNumber(n,l)
-						exit = False
 
 def checkByRow():
 	for j in range(9):
@@ -110,7 +111,6 @@ def checkByRow():
 			l = findLocationRow(n, locations)
 			if l != 0:
 				writeNumber(n,l)
-				exit = False
 				
 def checkByColumn():
 	for i in range(9):
@@ -125,7 +125,6 @@ def checkByColumn():
 			l = findLocationColumn(n,locations)
 			if l != 0:
 				writeNumber(n,l)
-				exit = False
 
 def hardMetro():
 	b[0][0] = 3
@@ -186,28 +185,31 @@ def easyTimes():
 	b[8][3] = 7
 	b[8][5] = 2
 
-easyTimes()
+def printBoard():
+	c = [["|" for i in range(11)] for j in range(11)]
+	for j in range(11):
+		if (j%4==3):
+			for i in range(11):
+				if (i%4==3):
+					c[j][i] = "+"
+				else:
+					c[j][i] = "-"
+	for j in range(9):
+		for i in range(9):
+			c[j+(j-j%3)/3][i+(i-i%3)/3] = str(b[j][i])
+	pprint("")
+	pprint(c)
+
+#easyTimes()
+hardMetro()
 pprint(b)
-exit = False
 #while not isSolved():
-#if True:
-while not exit:
-	exit = True
+while not exit[0]:
+	exit[0] = True
 	checkBySquare()
-	checkByRow()
-	checkByColumn()
-	
-c = [["|" for i in range(11)] for j in range(11)]
-for j in range(11):
-	if (j%4==3):
-		for i in range(11):
-			if (i%4==3):
-				c[j][i] = "+"
-			else:
-				c[j][i] = "-"
-for j in range(9):
-	for i in range(9):
-		c[j+(j-j%3)/3][i+(i-i%3)/3] = str(b[j][i])
+	#checkByRow()
+	#checkByColumn()
+
 pprint("")
-pprint(c)
-    
+pprint(b)
+#printBoard()
