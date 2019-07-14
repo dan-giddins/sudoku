@@ -5,12 +5,13 @@ namespace Sudoku
 {
     class Program
     {
+        private const bool _debug = true;
         static void Main()
         {
             var SudokuSolver = new SudokuSolver();
             var board = GetBoard(Boards.HardMetro);
             PrettyPrinter.PrettyPrint(board);
-            var solvedBoard = SudokuSolver.Solve(board);
+            var solvedBoard = SudokuSolver.Solve(board, _debug);
             PrettyPrinter.PrettyPrint(solvedBoard);
             Console.WriteLine(IsSolved(solvedBoard));
             Console.ReadKey();

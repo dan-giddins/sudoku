@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 
@@ -8,16 +9,30 @@ namespace Sudoku
     {
         private int[,] _board;
         private bool _exit;
+        private bool _debug;
 
-        public int[,] Solve(int[,] board)
+        public int[,] Solve(int[,] board, bool debug)
         {
             _board = board;
+            _debug = debug;
             _exit = false;
             while (!_exit)
             {
                 _exit = true;
+                if (debug)
+                {
+                    Console.WriteLine("Checking squares...");
+                }
                 CheckBySquare();
+                if (debug)
+                {
+                    Console.WriteLine("Checking rows...");
+                }
                 CheckByRow();
+                if (debug)
+                {
+                    Console.WriteLine("Checking columns...");
+                }
                 CheckByColumn();
             }
             return _board;
@@ -176,8 +191,12 @@ namespace Sudoku
         {
             _exit = false;
             _board[l.Y, l.X] = n;
-            PrettyPrinter.PrettyPrint(_board);
-            Thread.Sleep(1000);
+            if (_debug)
+            {
+                Console.WriteLine($"{n} @ [{l.Y}, {l.X}]");
+                PrettyPrinter.PrettyPrint(_board);
+                Thread.Sleep(1000);
+            }
         }
 
         private Location FindPlace(int n, int i, int j)

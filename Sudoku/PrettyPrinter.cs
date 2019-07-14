@@ -6,32 +6,33 @@ namespace Sudoku
     {
         public static void PrettyPrint(int[,] board)
         {
+            string s = "";
             for (int j = 0; j < board.GetLength(0); j++)
             {
                 if (j % 3 == 0)
                 {
                     for (int i = 0; i < 3; i++)
                     {
-                        Console.Write("+-------");
+                        s += "+-------";
                     }
-                    Console.WriteLine("+");
+                    s += "+\n";
                 }
                 for (int i = 0; i < board.GetLength(1); i++)
                 {
                     if (i % 3 == 0)
                     {
-                        Console.Write("| ");
+                        s += "| ";
                     }
-                    Console.Write($"{board[j, i]} ");
+                    s += $"{board[j, i]} ";
                 }
-                Console.WriteLine("|");
+                s += "|\n";
             }
             for (int i = 0; i < 3; i++)
             {
-                Console.Write("+-------");
+                s += "+-------";
             }
-            Console.WriteLine("+");
-            Console.WriteLine();
+            s += "+\n";
+            Console.WriteLine(s);
         }
     }
 }
