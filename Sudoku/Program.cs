@@ -6,6 +6,8 @@ namespace Sudoku
     {
         static void Main(string[] args)
         {
+            var boar = GetBoard("");
+            var SudokuSolver = new SudokuSolver();
             Console.WriteLine("Hello World!");
         }
     }

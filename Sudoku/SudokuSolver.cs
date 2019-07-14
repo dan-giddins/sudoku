@@ -1,6 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace Sudoku
 {
@@ -22,6 +21,134 @@ namespace Sudoku
             return _board;
         }
 
+        private void CheckByColumn()
+        {
+            for (var i = 0; i < 9; i++)
+            {
+                var numbers = Enumerable.Range(1, 9).ToList();
+                var locations = new List<Location>();
+                for (var j = 0; j < 9; j++)
+                {
+                    if (_board[j][i] == 0)
+                    {
+                        locations.Add(new Location(i, j));
+                    }
+                    else
+                    {
+                        numbers.Remove(_board[j][i]);
+                    }
+                }
+                foreach (var n in numbers)
+                {
+                    var l = FindLocationColumn(n, locations);
+                    if (!(l is null))
+                    {
+                        WriteNumber(n, l);
+                    }
+                }
+            }
+        }
+
+        private Location FindLocationColumn(int n, List<Location> locations)
+        {
+            Location location = null;
+            foreach (var l in locations)
+            {
+                if (!CheckRow(n, l))
+                {
+                    if (location is null)
+                    {
+                        location = l;
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+            }
+            return location;
+        }
+
+        private bool CheckRow(int n, Location l)
+        {
+            if (Find(n, l.X, l.Y))
+            {
+                return true;
+            }
+            for (var i = 0; i < 9; i++)
+            {
+                if (_board[l.Y][i] == n)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private void CheckByRow()
+        {
+            for (var j = 0; j < 9; j++)
+            {
+                var numbers = Enumerable.Range(1, 9).ToList(); ;
+                var locations = new List<Location>();
+                for (var i = 0; i < 9; i++)
+                {
+                    if (_board[j][i] == 0)
+                    {
+                        locations.Add(new Location(i, j));
+                    }
+                    else
+                    {
+                        numbers.Remove(_board[j][i]);
+                    }
+                }
+                foreach (var n in numbers)
+                {
+                    var l = FindLocationRow(n, locations);
+                    if (!(l is null))
+                    {
+                        WriteNumber(n, l);
+                    }
+                }
+            }
+        }
+
+        private Location FindLocationRow(int n, List<Location> locations)
+        {
+            Location location = null;
+            foreach (var l in locations)
+            {
+                if (!CheckColumn(n, l))
+                {
+                    if (location is null)
+                    {
+                        location = l;
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+            }
+            return location;
+        }
+
+        private bool CheckColumn(int n, Location l)
+        {
+            if (Find(n, l.X, l.Y))
+            {
+                return true;
+            }
+            for (var j = 0; j < 9; j++)
+            {
+                if (_board[j][l.X] == n)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         private void CheckBySquare()
         {
             for (var n = 1; n < 10; n++)
@@ -41,6 +168,12 @@ namespace Sudoku
                     }
                 }
             }
+        }
+
+        private void WriteNumber(int n, Location l)
+        {
+            _exit = false;
+            _board[l.Y][l.X] = n;
         }
 
         private Location FindPlace(int n, int i, int j)
@@ -67,17 +200,19 @@ namespace Sudoku
         {
             for (var p = 0; p < 9; p++)
             {
-
+                if (_board[p][k] == n)
+                {
+                    return true;
+                }
             }
-        if b[p][k] == n:
-			return True
-
-    for p in range(9):
-
-        if b[l][p] == n:
-			return True
-
-    return False
+            for (var p = 0; p < 9; p++)
+            {
+                if (_board[l][p] == n)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         private bool Find(int n, int i, int j)
