@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 
 namespace Sudoku
 {
@@ -175,6 +176,8 @@ namespace Sudoku
         {
             _exit = false;
             _board[l.Y, l.X] = n;
+            PrettyPrinter.PrettyPrint(_board);
+            Thread.Sleep(1000);
         }
 
         private Location FindPlace(int n, int i, int j)

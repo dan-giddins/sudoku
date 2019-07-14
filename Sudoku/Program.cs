@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace Sudoku
 {
@@ -7,23 +8,17 @@ namespace Sudoku
         static void Main()
         {
             var SudokuSolver = new SudokuSolver();
-            var board = GetBoard(Boards.EasyTimes);
-            PrettyPrint(board);
-            PrettyPrint(SudokuSolver.Solve(board));
+            var board = GetBoard(Boards.HardMetro);
+            PrettyPrinter.PrettyPrint(board);
+            var solvedBoard = SudokuSolver.Solve(board);
+            PrettyPrinter.PrettyPrint(solvedBoard);
+            Console.WriteLine(IsSolved(solvedBoard));
             Console.ReadKey();
         }
 
-        private static void PrettyPrint(int[,] board)
+        private static bool IsSolved(int[,] solvedBoard)
         {
-            Console.WriteLine();
-            for (int j = 0; j < board.GetLength(0); j++)
-            {
-                for (int i = 0; i < board.GetLength(1); i++)
-                {
-                    Console.Write($"{board[j, i]} ");
-                }
-                Console.WriteLine();
-            }
+            return !solvedBoard.Cast<int>().Any(x => x == 0);
         }
 
         private static int[,] GetBoard(Boards boardEnum)
