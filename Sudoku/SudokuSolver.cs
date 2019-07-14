@@ -5,10 +5,10 @@ namespace Sudoku
 {
     class SudokuSolver
     {
-        private int[][] _board;
+        private int[,] _board;
         private bool _exit;
 
-        public int[][] Solve(int[][] board)
+        public int[,] Solve(int[,] board)
         {
             _board = board;
             _exit = false;
@@ -29,13 +29,13 @@ namespace Sudoku
                 var locations = new List<Location>();
                 for (var j = 0; j < 9; j++)
                 {
-                    if (_board[j][i] == 0)
+                    if (_board[j, i] == 0)
                     {
                         locations.Add(new Location(i, j));
                     }
                     else
                     {
-                        numbers.Remove(_board[j][i]);
+                        numbers.Remove(_board[j, i]);
                     }
                 }
                 foreach (var n in numbers)
@@ -77,7 +77,7 @@ namespace Sudoku
             }
             for (var i = 0; i < 9; i++)
             {
-                if (_board[l.Y][i] == n)
+                if (_board[l.Y, i] == n)
                 {
                     return true;
                 }
@@ -93,13 +93,13 @@ namespace Sudoku
                 var locations = new List<Location>();
                 for (var i = 0; i < 9; i++)
                 {
-                    if (_board[j][i] == 0)
+                    if (_board[j, i] == 0)
                     {
                         locations.Add(new Location(i, j));
                     }
                     else
                     {
-                        numbers.Remove(_board[j][i]);
+                        numbers.Remove(_board[j, i]);
                     }
                 }
                 foreach (var n in numbers)
@@ -141,7 +141,7 @@ namespace Sudoku
             }
             for (var j = 0; j < 9; j++)
             {
-                if (_board[j][l.X] == n)
+                if (_board[j, l.X] == n)
                 {
                     return true;
                 }
@@ -153,9 +153,9 @@ namespace Sudoku
         {
             for (var n = 1; n < 10; n++)
             {
-                for (var j = 0; j < 9; j = j + 3)
+                for (var j = 0; j < 9; j += 3)
                 {
-                    for (var i = 0; i < 9; i = i + 3)
+                    for (var i = 0; i < 9; i += 3)
                     {
                         if (!Find(n, i, j))
                         {
@@ -173,7 +173,7 @@ namespace Sudoku
         private void WriteNumber(int n, Location l)
         {
             _exit = false;
-            _board[l.Y][l.X] = n;
+            _board[l.Y, l.X] = n;
         }
 
         private Location FindPlace(int n, int i, int j)
@@ -183,7 +183,7 @@ namespace Sudoku
             {
                 for (var k = i; k < i + 3; k++)
                 {
-                    if (_board[l][k] == 0 && !FindRowColumn(n, k, l))
+                    if (_board[l, k] == 0 && !FindRowColumn(n, k, l))
                     {
                         if (!(location is null))
                         {
@@ -200,14 +200,14 @@ namespace Sudoku
         {
             for (var p = 0; p < 9; p++)
             {
-                if (_board[p][k] == n)
+                if (_board[p, k] == n)
                 {
                     return true;
                 }
             }
             for (var p = 0; p < 9; p++)
             {
-                if (_board[l][p] == n)
+                if (_board[l, p] == n)
                 {
                     return true;
                 }
@@ -223,7 +223,7 @@ namespace Sudoku
             {
                 for (var k = i; k < i + 3; k++)
                 {
-                    if (_board[l][k] == n)
+                    if (_board[l, k] == n)
                     {
                         return true;
                     }

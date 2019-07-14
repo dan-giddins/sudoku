@@ -4,7 +4,9 @@ using System.Text;
 
 namespace Sudoku
 {
-    class Boards
+    enum Boards
     {
-    }
+        HardMetro,
+        EasyTimes
+    };
 }
