@@ -14,6 +14,7 @@ namespace Sudoku
             _exit = false;
             while (!_exit)
             {
+                _exit = true;
                 CheckBySquare();
                 CheckByRow();
                 CheckByColumn();
@@ -160,7 +161,7 @@ namespace Sudoku
                         if (!Find(n, i, j))
                         {
                             var l = FindPlace(n, i, j);
-                            if (l is null)
+                            if (!(l is null))
                             {
                                 WriteNumber(n, l);
                             }

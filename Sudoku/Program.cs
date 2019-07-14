@@ -16,9 +16,13 @@ namespace Sudoku
         private static void PrettyPrint(int[,] board)
         {
             Console.WriteLine();
-            foreach (var line in board)
+            for (int j = 0; j < board.GetLength(0); j++)
             {
-                Console.WriteLine(line);
+                for (int i = 0; i < board.GetLength(1); i++)
+                {
+                    Console.Write($"{board[j, i]} ");
+                }
+                Console.WriteLine();
             }
         }
 
